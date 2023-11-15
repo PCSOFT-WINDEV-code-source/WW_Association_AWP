@@ -1,0 +1,774 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : GestionConfigSite
+ major_version : 28
+ minor_version : 0
+ type : 7
+ description : ""
+ subtype : 0
+procedure_set :
+ identifier : 0x1cc85c3d004d6522
+ internal_properties : CAAAAAgAAABGLu41kG7fjQV3iS4F72qmnKaNh5694reolNKIW0iw
+ code_elements :
+  internal_properties : CAAAAAgAAAC46bV6KYpgGmna12DIAQ4VqnJgnpXquN/s07ijUGmb8y1EjP5ioR/wgsFJxrxkR2MglbuhyLBy+PXmH18MCYFhRH/M9j9U
+  type_code : 31
+  p_codes :
+   -
+     code : |1+
+      
+      CONSTANT
+      	
+      	CST_TEXTE = 1
+      	CST_IMAGE = 2
+      	
+      	
+      	MOT_PRESIDENT = 5
+      	PHOTO_PRESIDENT = 6
+      	PRESENTATION_ASSO = 7
+      	CONTACT_ASSO = 8
+      	TITRE_SITE = 9
+      	LOGO_SITE = 10
+      	
+      FIN
+     type : 720896
+  procedures :
+   -
+     name : LitMotPrésident
+     procedure_id : 2074011265970096442
+     type_code : 15
+     code : |1-
+      // Résumé : Permet de récupérer le mot du président enregistré dans la base de données
+      // Syntaxe :
+      //[ <Résultat> = ] LitMotPrésident ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	chaîne : Mot du président
+      
+      PROCEDURE LitMotPrésident()
+      
+      sMotPrésident est une chaine
+      
+      hlitrecherchepremier(ConfigurationSite,Information,MOT_PRESIDENT)
+      
+      si htrouve(ConfigurationSite) ALORS
+      	
+      	sMotPrésident = ConfigurationSite.Texte
+      	
+      	RENVOYER sMotPrésident
+      
+      sinon
+      	
+      	renvoyer ""
+      		
+      FIN
+     type : 458752
+   -
+     name : LitPhotoPrésident
+     procedure_id : 2074245315913374935
+     type_code : 15
+     code : |1+
+      // Résumé : Permet de récupérer la photo du président enregistrée dans la base de données
+      // Syntaxe :
+      //[ <Résultat> = ] LitPhotoPrésident ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	chaîne ANSI : Photo du président de l'association
+      
+      PROCEDURE LitPhotoPrésident()
+      
+      sPhotoPrésident est une chaine
+      
+      HLitRecherchePremier(ConfigurationSite,Information,PHOTO_PRESIDENT)
+      
+      SI HTrouve(ConfigurationSite) ALORS
+      	
+      	sPhotoPrésident = ConfigurationSite.Texte
+      	
+      sinon
+      	
+      	RENVOYER "images/avatar-defaut.gif"
+      	
+      FIN
+      
+      
+      // On renvoie la photo du président (en localisant correctement selon l'appel)
+      SI EnModeAWP() = Vrai ALORS
+      	RENVOYER sPhotoPrésident
+      SINON
+      	RENVOYER "FR/"+sPhotoPrésident
+      FIN
+     type : 458752
+   -
+     name : LitPrésentationAsso
+     procedure_id : 2074245788360477408
+     type_code : 15
+     code : |1-
+      // Résumé : Permet de récupérer la présentation de l'association enregistrée dans la base de données
+      // Syntaxe :
+      //[ <Résultat> = ] LitPrésentationAsso ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	chaîne : Présentation de l'association
+      
+      PROCEDURE LitPrésentationAsso()
+      
+      sPrésentationAsso est une chaine
+      
+      HLitRecherchePremier(ConfigurationSite,Information,PRESENTATION_ASSO)
+      
+      SI HTrouve(ConfigurationSite) ALORS
+      	
+      	sPrésentationAsso = ConfigurationSite.Texte
+      	
+      	RENVOYER sPrésentationAsso
+      	
+      sinon
+      	
+      	renvoyer ""
+      	
+      FIN
+     type : 458752
+   -
+     name : LitContactAsso
+     procedure_id : 2074246887886910034
+     type_code : 15
+     code : |1+
+      // Résumé :  Permet de récupérer le contact de l'association enregistré dans la base de données
+      // Syntaxe :
+      //[ <Résultat> = ] LitContactAsso ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	chaîne : Contact de l'association
+      
+      PROCEDURE LitContactAsso()
+      
+      sContactAsso est une chaine
+      
+      HLitRecherchePremier(ConfigurationSite,Information,CONTACT_Asso)
+      
+      SI HTrouve(ConfigurationSite) ALORS
+      	
+      	sContactAsso = ConfigurationSite.Texte
+      	
+      	RENVOYER sContactAsso
+      	
+      sinon
+      	
+      	RENVOYER ""
+      	
+      FIN
+     type : 458752
+   -
+     name : EcritPhotoPrésident
+     internal_properties : CAAAAAgAAACGz9etk8m+Lp1+G6hdWWkveZM+EjdZguj5LL4F8EvDRew7b4SqqzydYcR6IlzT+HSgmQarlLErNemtg3KOTTuWKZYi2sJxilyEwZT++p5b4tP0rJ/DZn4L4JAwbIcJ5odICPnnJ7PRnQ7XxeqKhWYz6yyCtRMydqnRYG50Isgo364LA5UKQUluz5oe+biRLbTjQggGz8eKTMgPBw==
+     procedure_id : 2074250061867825441
+     type_code : 15
+     code : |1+
+      // Résumé : Enregistrer la photo du président
+      // Syntaxe :
+      //[ <Résultat> = ] EcritPhotoPrésident (<sCheminFichier> [, <bSupprFichier>])
+      //
+      // Paramètres :
+      //	sCheminFichier : Chemin du fichier photo à enregistrer en tant que photo du président de l'association
+      //	bSupprFichier (valeur par défaut=1) : Vrai s'il faut supprimer le fichier image initial, Faux sinon (Faux dans le cas de la restauration du logo par défaut)
+      // Valeur de retour :
+      // 	booléen : Vrai si la modification a été effectuée, Faux sinon
+      
+      
+      PROCEDURE EcritPhotoPrésident(sCheminFichier, bSupprFichier = vrai)
+      
+      
+      // Variables locales
+      ImagePhotoPrésident est une image
+      sCheminPhotoPrésident	est une chaine
+      sCheminFichierGeneration est une chaine
+      
+      
+      // Vérification de l'existence du fichier
+      SI fFichierExiste(sCheminFichier) = Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      // On construit le nom de fichier de l'image de génération
+      sCheminFichierGeneration = ComplèteRep(sRenvoyerRepGeneration())+fExtraitChemin(sCheminFichier,fFichier) + fExtraitChemin(sCheminFichier,fExtension)
+      
+      // Est-ce que l'image n'est pas trop grande ?
+      ImagePhotoPrésident = sCheminFichier
+      
+      SI ImagePhotoPrésident..Hauteur > 115 _OU_ ImagePhotoPrésident..Largeur > 115  ALORS
+      	
+      	// Redimensionnement de l'image
+      	SI dRedimensionne(ImagePhotoPrésident,115,115,drHomothétiqueCentré) = Faux ALORS
+      		
+      		// Ceci n'est pas une erreur fatale
+      	FIN
+      	
+      	selon fExtraitChemin(sCheminFichier,fExtension)
+      		cas ~= ".png"
+      			// Sauvegarde de l'image : on veut un PNG
+      			SI dSauveImagePNG(ImagePhotoPrésident,sCheminFichierGeneration) = Faux ALORS
+      				RENVOYER Faux
+      			FIN	
+      			
+      		cas ~= ".gif"
+      			// Sauvegarde de l'image : on veut un GIF
+      			SI dSauveImageGIF(ImagePhotoPrésident,sCheminFichierGeneration) = Faux ALORS
+      				RENVOYER Faux
+      			FIN	
+      			
+      		CAS ~= ".bmp"
+      			// Sauvegarde de l'image : on veut un BMP
+      			SI dSauveImagebmp(ImagePhotoPrésident,sCheminFichierGeneration) = Faux ALORS
+      				RENVOYER Faux
+      			FIN	
+      		CAS ~= ".jpg", ".jpeg" :
+      			// Sauvegarde de l'image : on veut un JPG
+      			SI dSauveImageJPEG(ImagePhotoPrésident,sCheminFichierGeneration) = Faux ALORS
+      				RENVOYER Faux
+      			FIN	
+      		
+      		AUTRE CAS
+      			
+      	FIN
+      fin
+      
+      
+      // On copie la photo dans le répertoire _WEB autorisé
+      sCheminPhotoPrésident = ComplèteRep(sRenvoyerRepWebUpload())+"avatar" + fExtraitChemin(sCheminFichier,fExtension)
+      
+      SI fCopieFichierRépertoireWeb(sCheminFichierGeneration,sCheminPhotoPrésident) = Faux ALORS
+      	RENVOYER Faux
+      FIN	
+      
+      SI fCopieFichier(sCheminFichier,sCheminFichierGeneration) = Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      // On construit le chemin de l'image par rapport à fRepWeb
+      sCheminPhotoPrésident = Remplace(sCheminPhotoPrésident,fRepWeb()+"\FR","")
+      
+      sCheminPhotoPrésident = Remplace(sCheminPhotoPrésident,"\","/")
+      
+      SI Gauche(sCheminPhotoPrésident,1)~="/" ALORS sCheminPhotoPrésident = Droite(sCheminPhotoPrésident,Taille(sCheminPhotoPrésident)-1)
+      
+      
+      //Modification dans la base de données
+      HLitRecherchePremier(ConfigurationSite,Information,PHOTO_PRESIDENT)
+      
+      SI HTrouve(ConfigurationSite) ALORS
+      	
+      	ConfigurationSite.Texte = sCheminPhotoPrésident
+      	HModifie(ConfigurationSite)
+      	
+      SINON
+      	
+      	ConfigurationSite.Information = PHOTO_PRESIDENT
+      	ConfigurationSite.TypeInfo = CST_TEXTE
+      	ConfigurationSite.Texte = sCheminPhotoPrésident
+      	
+      	HAjoute(ConfigurationSite)	
+      	
+      FIN
+      
+      SI bSupprFichier = Vrai ALORS
+      	// On supprime le fichier temporaire
+      	fSupprime(sCheminFichier)
+      FIN
+      
+      // La modification a été effectuée
+      RENVOYER Vrai
+      
+      
+      
+      
+     type : 458752
+   -
+     name : EcritMotPrésident
+     procedure_id : 2074252608783697686
+     type_code : 15
+     code : |1+
+      // Résumé : Enregistre le mot du président dans la base de données
+      // Syntaxe :
+      //EcritMotPrésident (<sMotPrésident>)
+      //
+      // Paramètres :
+      //	sMotPrésident : Texte pour le mot du président
+      // Valeur de retour :
+      // 	Aucune
+      
+      PROCEDURE EcritMotPrésident(sMotPrésident)
+      
+      HLitRecherchePremier(ConfigurationSite,Information,MOT_PRESIDENT)
+      
+      ConfigurationSite.Texte = sMotPrésident
+      
+      SI HTrouve(ConfigurationSite) ALORS
+      	
+      	hmodifie(ConfigurationSite)
+      	
+      sinon
+      	
+      	ConfigurationSite.Information = MOT_PRESIDENT
+      	ConfigurationSite.TypeInfo = CST_TEXTE
+      	
+      	HAjoute(ConfigurationSite)
+      	
+      FIN
+     type : 458752
+   -
+     name : EcritContactAsso
+     procedure_id : 2074253343223144692
+     type_code : 15
+     code : |1+
+      // Résumé : Enregistre le texte pour le contact de l'association dans la base de données
+      // Syntaxe :
+      //EcritContactAsso (<sContactAsso>)
+      //
+      // Paramètres :
+      // 	sContactAsso : Texte pour le contact de l'association 
+      // Valeur de retour :
+      // 	Aucune
+      PROCEDURE EcritContactAsso(sContactAsso)
+      
+      HLitRecherchePremier(ConfigurationSite,Information,CONTACT_ASSO)
+      
+      ConfigurationSite.Texte = sContactAsso
+      
+      SI HTrouve(ConfigurationSite) ALORS
+      	
+      	HModifie(ConfigurationSite)
+      	
+      SINON
+      	
+      	ConfigurationSite.Information = CONTACT_ASSO
+      	ConfigurationSite.TypeInfo = CST_TEXTE
+      	
+      	HAjoute(ConfigurationSite)
+      	
+      FIN
+      
+     type : 458752
+   -
+     name : EcritPrésentationAsso
+     procedure_id : 2074253386172892985
+     type_code : 15
+     code : |1+
+      // Résumé : Enregistre le texte pour la présentation de l'association dans la base de données
+      // Syntaxe :
+      //EcritPrésentationAsso (<sPrésentationAsso>)
+      //
+      // Paramètres :
+      // 	sPrésentationAsso :  Texte pour la présentation de l'association 
+      // Valeur de retour :
+      
+      PROCEDURE EcritPrésentationAsso(sPrésentationAsso)
+      
+      HLitRecherchePremier(ConfigurationSite,Information,PRESENTATION_ASSO)
+      
+      ConfigurationSite.Texte = sPrésentationAsso
+      
+      SI HTrouve(ConfigurationSite) ALORS
+      	
+      	HModifie(ConfigurationSite)
+      	
+      SINON
+      	
+      	ConfigurationSite.Information = PRESENTATION_ASSO
+      	ConfigurationSite.TypeInfo = CST_TEXTE
+      	
+      	HAjoute(ConfigurationSite)
+      	
+      FIN
+     type : 458752
+   -
+     name : EcritTitre
+     procedure_id : 2082055696824560246
+     type_code : 15
+     code : |1+
+      // Résumé : Enregistre le titre du site dans la base de données
+      // Syntaxe :
+      //EcritTitre (<sTitre>)
+      //
+      // Paramètres :
+      //	sTitre : Le titre
+      // Valeur de retour :
+      // 	Aucune
+      
+      PROCEDURE EcritTitre(sTitre)
+      
+      HLitRecherchePremier(ConfigurationSite,Information,TITRE_SITE)
+      
+      ConfigurationSite.Texte = sTitre
+      
+      SI HTrouve(ConfigurationSite) ALORS
+      	
+      	hmodifie(ConfigurationSite)
+      	
+      sinon
+      	
+      	ConfigurationSite.Information = TITRE_SITE
+      	ConfigurationSite.TypeInfo = CST_TEXTE
+      	
+      	HAjoute(ConfigurationSite)
+      	
+      FIN
+     type : 458752
+   -
+     name : LitTitre
+     procedure_id : 2082055988882403766
+     type_code : 15
+     code : |1-
+      // Résumé : Permet de récupérer le titre du site dans la base de données
+      // Syntaxe :
+      //[ <Résultat> = ] LitTitre ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	chaîne : Le titre du site
+      
+      PROCEDURE LitTitre()
+      
+      sTitre est une chaine
+      
+      hlitrecherchepremier(ConfigurationSite,Information,TITRE_SITE)
+      
+      si htrouve(ConfigurationSite) ALORS
+      	
+      	sTitre = ConfigurationSite.Texte
+      	
+      	RENVOYER sTitre
+      
+      sinon
+      	
+      	renvoyer "L'association !"
+      		
+      FIN
+     type : 458752
+   -
+     name : LitLogoSite
+     procedure_id : 1249040661304577010
+     type_code : 15
+     code : |1+
+      // Résumé : Permet de récupérer le logo du site enregistré dans la base de données
+      // Syntaxe :
+      //[ <Résultat> = ] LitLogoSite ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	chaîne ANSI : Logo du site de l'association
+      
+      PROCEDURE LitLogoSite()
+      
+      sLogo est une chaine 
+      
+      HLitRecherchePremier(ConfigurationSite,Information,LOGO_SITE)
+      
+      SI HTrouve(ConfigurationSite) ALORS
+      	
+      	sLogo = ConfigurationSite.Texte
+      	
+      	// On renvoie le logo (en localisant correctement selon l'appel)
+      	SI EnModeAWP() = Vrai ALORS
+      		RENVOYER sLogo
+      	SINON
+      		RENVOYER "FR/"+sLogo
+      	FIN		
+      FIN
+      
+      renvoyer ""
+     type : 458752
+   -
+     name : EcritLogoSite
+     internal_properties : CAAAAAgAAADANRHjVWPg+DPwLcKHS3tJ+0LG8PVnSqLDkGyLCEXVcdbjU35khfBf5wRAHOiZqgjOrTqx0ncrK//defzq2y1qVwpS1Ixj3irawfYIPvs84QjH0Zjcq6kqO2dJFeiu+yrNlwrsLGyIyF0eriPzKnv2EEuj0jAzlURU56ddS43too+CjBqPSlD5epxwT1bzQy4d5EqkbRHQEoJJwQ==
+     procedure_id : 1249040906117836060
+     type_code : 15
+     code : |1+
+      // Résumé : Enregistrer le logo du site
+      // Syntaxe :
+      //[ <Résultat> = ] EcritLogoSite (<sCheminFichier> est chaîne [, <bSupprFichier>])
+      //
+      // Paramètres :
+      //	sCheminFichier (chaîne ANSI) : Chemin du fichier image à enregistrer en tant que logo pour le site
+      //	bSupprFichier (valeur par défaut=1) : Vrai s'il faut supprimer le fichier image initial, Faux sinon (Faux dans le cas de la restauration du logo par défaut)
+      // Valeur de retour :
+      // 	booléen : Vrai si la modification a été effectuée, Faux sinon
+      
+      
+      PROCEDURE EcritLogoSite(sCheminFichier est une chaine, bSupprFichier = vrai)
+      
+      // Variables locales
+      ImageLogo est une image
+      sCheminLogo	est une chaine
+      sCheminFichierGeneration est une chaine
+      
+      
+      // Vérification de l'existence du fichier
+      SI fFichierExiste(sCheminFichier) = Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      // On construit le nom de fichier de l'image de génération
+      sCheminFichierGeneration = ComplèteRep(sRenvoyerRepGeneration()) + fExtraitChemin(sCheminFichier,fFichier) + fExtraitChemin(sCheminFichier,fExtension)
+      
+      // Est-ce que l'image n'est pas trop grande ?
+      ImageLogo = sCheminFichier
+      
+      SI ImageLogo..Hauteur > 90 _OU_ ImageLogo..Largeur > 200  ALORS
+      	
+      	// Redimensionnement de l'image
+      	SI dRedimensionne(ImageLogo,200,90,drHomothétiqueCentré) = Faux ALORS
+      		// Ceci n'est pas une erreur fatale
+      	FIN
+      	
+      	SELON fExtraitChemin(sCheminFichier,fExtension)
+      		CAS ~= ".png"
+      			// Sauvegarde de l'image : on veut un PNG
+      			SI dSauveImagePNG(ImageLogo,sCheminFichierGeneration) = Faux ALORS
+      				RENVOYER Faux
+      			FIN	
+      			
+      		CAS ~= ".gif"
+      			// Sauvegarde de l'image : on veut un GIF
+      			SI dSauveImageGIF(ImageLogo,sCheminFichierGeneration) = Faux ALORS
+      				RENVOYER Faux
+      			FIN	
+      			
+      		CAS ~= ".bmp"
+      			// Sauvegarde de l'image : on veut un BMP
+      			SI dSauveImageBMP(ImageLogo,sCheminFichierGeneration) = Faux ALORS
+      				RENVOYER Faux
+      			FIN	
+      			
+      		CAS ~= ".jpg", ".jpeg" :
+      			// Sauvegarde de l'image : on veut un JPG
+      			SI dSauveImageJPEG(ImageLogo,sCheminFichierGeneration) = Faux ALORS
+      				RENVOYER Faux
+      			FIN	
+      			
+      		AUTRE CAS
+      			
+      	FIN
+      sinon
+      	
+      	SI fCopieFichier(sCheminFichier,sCheminFichierGeneration) = Faux ALORS
+      		RENVOYER Faux
+      	FIN
+      	
+      FIN
+      
+      // On copie le logo dans le répertoire _WEB autorisé
+      sCheminLogo = ComplèteRep(sRenvoyerRepWebUpload())+"logo" + fExtraitChemin(sCheminFichier,fExtension)
+      SI fCopieFichierRépertoireWeb(sCheminFichierGeneration,sCheminLogo) = Faux ALORS
+      	RENVOYER Faux
+      FIN	
+      
+      
+      
+      // On construit le chemin de l'image par rapport à fRepWeb
+      sCheminLogo = Remplace(sCheminLogo,fRepWeb()+"\FR","")
+      
+      sCheminLogo = Remplace(sCheminLogo,"\","/")
+      SI Gauche(sCheminLogo,1)~="/" ALORS sCheminLogo = Droite(sCheminLogo,Taille(sCheminLogo)-1)
+      
+      
+      HLitRecherchePremier(ConfigurationSite,Information,LOGO_SITE)
+      
+      
+      
+      SI HTrouve(ConfigurationSite) ALORS
+      	
+      	ConfigurationSite.Texte = sCheminLogo
+      	HModifie(ConfigurationSite)
+      	
+      SINON
+      	
+      	ConfigurationSite.Information = LOGO_SITE
+      	ConfigurationSite.TypeInfo = CST_TEXTE
+      	ConfigurationSite.Texte = sCheminLogo
+      	
+      	HAjoute(ConfigurationSite)	
+      	
+      FIN
+      
+      si bSupprFichier = vrai ALORS
+      	// On supprime le fichier temporaire
+      	fSupprime(sCheminFichier)
+      FIN
+      
+      // La modification a été effectuée
+      RENVOYER Vrai
+      
+      
+      
+      
+      
+     type : 458752
+   -
+     name : RestaurerLogoSiteDefaut
+     procedure_id : 1249082824713427733
+     type_code : 15
+     code : |1+
+      // Résumé : Restaure le logo par défaut du site
+      // Syntaxe :
+      //[ <Résultat> = ] RestaurerLogoSiteDefaut ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen : Vrai si la restauration a été effectuée, Faux sinon
+      //
+      //
+      PROCEDURE RestaurerLogoSiteDefaut()
+      
+      // On restaure le logo
+       EcritLogoSite(fRepDonnées()+["\"]+"logo_defaut.png", Faux)
+      	
+      
+      // La modification a été effectuée
+      RENVOYER Vrai
+      
+      
+     type : 458752
+   -
+     name : RestaurerPhotoPrésidentDefaut
+     internal_properties : CAAAAAgAAACEP+DzhjpnqVgYNyl29NuewfaGWs5hRQaiZIzxCdISE3zR28IJ7BCRInr2EB64eU6ikl5j3ihNAzrmdeZUJkx5qVK49NiQLxbAyMKHL+R76HlWtmjofUJhL4Rf50KXD65eRVYmzxC8Z6tu2YLrCyaLFAIImScIq9CLCDcroGAo1cUPtzVGcdCtW3BS4kdL3vuJownkP1Q=
+     procedure_id : 1249141391159389850
+     type_code : 15
+     code : |1+
+      // Résumé : Restaure la photo du président
+      // Syntaxe :
+      //[ <Résultat> = ] RestaurerPhotoPrésidentDefaut ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen : Vrai si la restauration a été effectuée, Faux sinon
+      //
+      //
+      PROCEDURE RestaurerPhotoPrésidentDefaut()
+      
+      // On restaure la photo du président
+       EcritPhotoPrésident(fRepDonnées()+["\"]+"avatar-defaut.gif", faux)
+      	
+      
+      // La modification a été effectuée
+      RENVOYER Vrai
+      
+      
+     type : 458752
+   -
+     name : sRenvoyerRepGeneration
+     internal_properties : CAAAAAgAAADII9SyOMRvIbbGOyVqmos+w/DkPFKP+S50bgBFhSCSHxKHAYzJlsRlPGRWSHaileqIcDQlNkIBAySwAb586CzRA3SqAgTe05KqIv4W4ClaASL/ZcGZ4td0MJ34Mpdw4ktHji2/YKUpYlTHwukQFBX8if+LzjTJbJNMQYDqad1j0rpkFk47amnUuB0PLWAgmTjW8gX4K6A=
+     procedure_id : 1249143495731210627
+     type_code : 15
+     code : |1+
+      // Résumé : Renvoie le chemin complet du répertoire de génération des images
+      // Syntaxe :
+      //[ <Résultat> = ] sRenvoyerRepGeneration ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	chaîne ANSI : Répertoire de génération des miniatures
+      //
+      
+      PROCEDURE sRenvoyerRepGeneration()
+      
+      // Variables locales
+      sRepGen est une chaine = fRepDonnées()+["\"]+"gen"
+      
+      // Est-ce que le répertoire de génération existe ?
+      SI fRépertoireExiste(sRepGen) = Faux ALORS
+      	fRepCrée(sRepGen)
+      FIN
+      
+      RENVOYER sRepGen
+      
+     type : 458752
+   -
+     name : sRenvoyerRepUpload
+     internal_properties : CAAAAAgAAABIlgWTg7S0RY+87eAGIj1+c6kS3DQUjdYYPVVYTdR3FRLl0wQWxdRumYZmMo82s9aWslTyKweIa3Lj4iAqkgGg4T2zcjW3IRaBibnBYwaN9uOE8w0ed8wyKF1/XAXuhha1/f2TmE0ZIcKYI18fytOpowLvhmgJ7AAeRpVCoI0Rtzgip0aX4fWWKXwPAh3oQiQ63hg/Rn1tkOwOBFk7nSuOodJDUS7e+2a02Z4jmvq+Jf1ttMnvIAquLblePrLFPw==
+     procedure_id : 1250915027549735509
+     type_code : 15
+     code : |1-
+      // Résumé : Renvoie le chemin complet du répertoire d'upload
+      // Syntaxe :
+      //[ <Résultat> = ] sRenvoyerRepUpload ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	chaîne ANSI : Répertoire d'upload
+      //
+      
+      PROCEDURE sRenvoyerRepUpload()
+      
+      // Variables locales
+      sRepUpload est une chaine = fRepDonnées()+["\"]+"upload"
+      
+      // Est-ce que le répertoire d'upload existe ?
+      SI fRépertoireExiste(sRepUpload) = Faux ALORS
+      	fRepCrée(sRepUpload)
+      FIN
+      
+      RENVOYER sRepUpload
+     type : 458752
+   -
+     name : sRenvoyerRepWebUpload
+     internal_properties : CAAAAAgAAAA0j3DGXcDcccqK55WKdsvitxRUzIpTpb6w2hQ1NVxKK4bTcQQBUnD9YNg6uI4WtQ4s3Ly1tg61ExiUbS6kpMz9N8g6IiwKr2rGnupI6jtUB5RpR+9b/MHeqsci3FGyDLFBoDe9gndjnO4pBEPCfu+Sq5ktJL5rbhXeGxrUk7+tYFym0LT9/CN+ehfZP/K6I/8xfplUz8Q=
+     procedure_id : 1250916135652538896
+     type_code : 15
+     code : |1+
+      // Résumé : Renvoie le répertoire de génération des images
+      // Syntaxe :
+      //[ <Résultat> = ] sRenvoyerRepWebUpload ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	chaîne ANSI : Répertoire de génération des images
+      //
+      
+      PROCEDURE sRenvoyerRepWebUpload()
+      
+      // Variables locales
+      sRepUpload est une chaine
+      
+      sRepUpload = fRepWeb()+["\FR\"]+"img_gen"
+      
+      // Est-ce que le répertoire d'upload existe ?
+      SI fRépertoireExiste(sRepUpload) = Faux ALORS
+      	fRepCrée(sRepUpload)
+      FIN
+      
+      
+      RENVOYER sRepUpload
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
+  original_name : COL_ProcéduresGlobales1
+resources :
+ string_res :
+  identifier : 0x1cc85c36004b4b0e
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+  strings :
+   -
+     text : {}
+     index : 1
+custom_note :
+ internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
